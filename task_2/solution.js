@@ -4,9 +4,21 @@ function calcShipping(sum, min, shipping) {
     let shippingPrice = shipping; // стоимость доставки
 
     // Задание №2.1. Рассчитать доставку
+    let shippingSum;
 
+    if (productsSum == 0) {
+        shippingSum = 0;
+    }
+
+    if (productsSum >= freeShippingMinSum) {
+        shippingSum = 0;
+    }
+
+    if (productsSum > 0 && productsSum < freeShippingMinSum) {
+        shippingSum = shippingPrice;
+    }
     // создайте переменную shippingSum
-
+    
     // если productsSum равно 0,
     // то shippingSum присвоить значение 0
 
@@ -27,9 +39,15 @@ function calcDiscount(sum, min, discount) {
     let discountPart = discount; // величина скидки в процентах
 
     // Задание №2.2. Рассчитать скидку
+    let discountSum;
 
     // создайте переменную discountSum
 
+    if (productsSum >= discountMinSum) {
+        discountSum = productsSum / 100 * discountPart;
+    }else {
+        discountSum = 0;
+    }
     // если productsSum больше или равно discountMinSum,
     // то присвойте discountSum значение discountPart процентов от productsSum,
     // иначе присвойте discountSum значение 0
@@ -44,6 +62,9 @@ function calcInvoice({sum, discountMinSum, discountPart, shippingFreeMinSum, shi
     let discountSum = calcDiscount(sum, discountMinSum, discountPart);
 
     // Задача №2.3. Рассчитать скидки и доставку в корзине
+    let totalSum;
+    totalSum = productsSum;
+    totalSum = productsSum - discountSum;
 
     // создайте переменную totalSum
 
@@ -53,10 +74,13 @@ function calcInvoice({sum, discountMinSum, discountPart, shippingFreeMinSum, shi
     let shippingSum = calcShipping(totalSum, shippingFreeMinSum, shippingPrice); // не изменяйте эту строку!!!
 
     // прибавьте к totalSum значение shippingSum
+    totalSum = totalSum + shippingSum;
 
     // создайте переменную freeShipping
+    let freeShipping;
     // запишите без использования if или любых других условий:
     // если shippingSum равно нулю, то freeShipping должна быть равна true, иначе freeShipping должна быть равна false
+    freeShipping = !shippingSum;
 
     // Конец решения задачи №2.3.
 
